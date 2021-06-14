@@ -38,7 +38,7 @@ public class CityByCountryStateFromQueryString {
             @CosmosDBInput(name = "cities_demo",
               databaseName = "ghasp-java-demo",
               collectionName = "Items",
-              name = "{Query.name}",
+              id = "{Query.id}",
               partitionKey = "{Query.state_code}/{Query.country_code}",
               connectionStringSetting = "Cosmos_DB_Connection_String") 
             Optional<String> item,
