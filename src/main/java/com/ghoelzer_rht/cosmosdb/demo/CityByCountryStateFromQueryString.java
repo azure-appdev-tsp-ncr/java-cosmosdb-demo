@@ -35,13 +35,6 @@ public class CityByCountryStateFromQueryString {
               methods = {HttpMethod.GET, HttpMethod.POST}, 
               authLevel = AuthorizationLevel.ANONYMOUS) 
             HttpRequestMessage<Optional<String>> request,        
-            @CosmosDBInput(name = "database",
-              databaseName = "ghasp_java_demo",
-              collectionName = "cities_demo",
-              id = "{Query.id}",
-              partitionKey = "{Query.state_code}",
-              connectionStringSetting = "Cosmos_DB_Connection_String") 
-            Optional<String> item,
             final ExecutionContext context) {
         
         // Item list
