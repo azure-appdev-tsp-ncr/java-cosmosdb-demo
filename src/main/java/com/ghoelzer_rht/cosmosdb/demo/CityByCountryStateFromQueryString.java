@@ -34,7 +34,13 @@ public class CityByCountryStateFromQueryString {
             @HttpTrigger(name = "req", 
               methods = {HttpMethod.GET, HttpMethod.POST}, 
               authLevel = AuthorizationLevel.ANONYMOUS) 
-            HttpRequestMessage<Optional<String>> request,        
+            HttpRequestMessage<Optional<String>> request,  
+            CosmosDBInput(name = "database",
+                databaseName = "ghasp_java_demo",
+                collectionName = "cities_demo",
+                SqlQuery = "select * from Items c where c.country_id = {Query.city_name} and {Query.state_code}",
+                ConnectionStringSetting = "CosmosDBConnection")
+                CityItem[] cities,      
             final ExecutionContext context) {
         
         // Item list
@@ -42,18 +48,17 @@ public class CityByCountryStateFromQueryString {
         //context.getLogger().info("String from the database is " + item.get());
 
         // Convert and display
-        if (!item.isPresent()) {
+        if (cities == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
-                          .body("Document not found.")
+                          .body("No documents found.")
                           .build();
-        } 
+        }
         else {
-            // return JSON from Cosmos. Alternatively, we can parse the JSON string 
-            // and return an enriched JSON object.
             return request.createResponseBuilder(HttpStatus.OK)
                           .header("Content-Type", "application/json")
-                          .body(item.get())
+                          .body(cities)
                           .build();
+            }
         }
     }
 }

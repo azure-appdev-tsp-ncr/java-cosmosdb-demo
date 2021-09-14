@@ -21,7 +21,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
  * That ID is used to retrieve a ToDoItem document from the specified database and collection.
  */
 
-public class CityByCountryStateFromQueryString {
+public class CityByIDStateFromQueryString {
 
     /**
      * This function listens at endpoint "/api/CityByCountryStateFromQueryString". Two ways to invoke it using "curl" command in bash:
@@ -29,7 +29,7 @@ public class CityByCountryStateFromQueryString {
      * 2. curl {your host}/api/CityByCountryStateFromQueryString?id=<someid>
      */
 
-    @FunctionName("CityByCountryStateFromQueryString")
+    @FunctionName("CityByIDStateFromQueryString")
     public HttpResponseMessage run(
             @HttpTrigger(name = "req", 
               methods = {HttpMethod.GET, HttpMethod.POST}, 
